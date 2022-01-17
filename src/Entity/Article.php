@@ -26,9 +26,11 @@ class Article
     private $date;
 
     #[ORM\ManyToOne(targetEntity: Writer::class, inversedBy: 'articles')]
+    #[ORM\JoinColumn(onDelete:'CASCADE')]
     private $writer;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
+    #[ORM\JoinColumn(onDelete:'CASCADE')]
     private $category;
 
     public function getId(): ?int
