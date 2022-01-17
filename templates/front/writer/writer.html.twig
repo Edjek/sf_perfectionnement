@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Writer
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-3">
+
+		<div class="my-3">
+			<a href="{{ path('main') }}" class="btn btn-outline-primary">
+				Accueil
+			</a>
+			<a href="{{ path('writer_list') }}" class="btn btn-outline-primary">
+				Liste des writers
+			</a>
+		</div>
+
+		<div class="border p-5">
+			<h1>{{ writer.name }}</h1>
+			<p>{{ writer.firstname }}</p>
+		</div>
+	</div>
+
+{% endblock %}

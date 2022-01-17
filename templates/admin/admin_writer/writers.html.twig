@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Writers!
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-5">
+		{% for message in app.flashes('notice') %}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
+
+		<div class="my-3">
+			<a href="{{ path('admin_main') }}" class="btn btn-outline-primary">
+				Accueil
+			</a>
+			<a href="{{ path('admin_create_writer') }}" class="btn btn-outline-primary">
+				Ajouter<i class="bi bi-plus-circle-dotted ms-2"></i>
+			</a>
+		</div>
+
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Firstname</th>
+					<th scope="col">Modifier</th>
+					<th scope="col">Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for writer in writers %}
+					<tr>
+						<td>{{ writer.name }}</td>
+						<td>{{ writer.firstname }}</td>
+						<td>
+							<a href="{{ path('admin_update_writer', { 'id' : writer.id }) }}">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('admin_delete_writer', { 'id' : writer.id }) }}">
+								<i class="bi bi-trash text-danger"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

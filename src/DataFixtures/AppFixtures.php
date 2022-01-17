@@ -6,42 +6,68 @@ use Faker\Factory;
 use App\Entity\Writer;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Repository\WriterRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
+    private $categoryRepository;
+    private $writerRepository;
+
+    public function __construct(CategoryRepository $categoryRepository, WriterRepository $writerRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+        $this->writerRepository = $writerRepository;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // $product = new Product();
         // $manager->persist($product);
 
-        $facker = Factory::create();
+        $faker = Factory::create('fr_FR');
+
         for ($i = 0; $i < 10; $i++) {
             $category = new Category();
-            $category->setName($facker->word);
-            $category->setDescription($facker->text);
+
+            $category->setName($faker->word);
+            $category->setDescription($faker->text);
 
             $manager->persist($category);
+            $manager->flush();
         }
 
         for ($i = 0; $i < 10; $i++) {
             $writer = new Writer();
-            $writer->setName($facker->lastname);
-            $writer->setFirstname($facker->firstname);
+
+            $writer->setName($faker->lastname);
+            $writer->setFirstname($faker->firstname);
 
             $manager->persist($writer);
+            $manager->flush();
         }
 
         for ($i = 0; $i < 10; $i++) {
             $article = new Article();
-            $article->setTitle($facker->word);
-            $article->setContent($facker->text);
-            $article->setPublished($facker->boolean);
-            $article->setDate($facker->dateTime);
+
+            $id_category = rand(111, 120);
+            $id_writer = rand(111, 120);
+
+            $category = $this->categoryRepository->find($id_category);
+            $writer = $this->writerRepository->find($id_writer);
+
+            $article->setTitle($faker->words(3, true));
+            $article->setContent($faker->text);
+            $article->setPublished($faker->boolean);
+            $article->setDate($faker->dateTime);
+            $article->setCategory($category);
+            $article->setWriter($writer);
 
             $manager->persist($article);
         }
+
         $manager->flush();
     }
 }

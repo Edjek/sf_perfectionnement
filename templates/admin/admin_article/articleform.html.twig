@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="my-3">
+			<a href="{{ path('admin_main') }}" class="btn btn-outline-primary">
+				Accueil
+			</a>
+			<a href="{{ path('admin_article_list') }}" class="btn btn-outline-primary">
+				Retour à la liste
+			</a>
+		</div>
+
+		{{ form_start(articleForm) }}
+		<div class="mb-3">
+			{{ form_label(articleForm.title, 'Title : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(articleForm.title, {'attr' : {'class' : 'form-control'} } ) }}
+		</div>
+
+		<div class="mb-3">
+			{{ form_label(articleForm.content, 'Content : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(articleForm.content, {'attr' : { 'class' : 'form-control'} } ) }}
+		</div>
+
+		<div class="mb-3">
+			{{ form_label(articleForm.writer, 'Writer : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(articleForm.writer, {'attr' : { 'class' : 'form-control'} } ) }}
+		</div>
+
+		<div class="mb-3">
+			{{ form_label(articleForm.category, 'Category : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(articleForm.category, {'attr' : { 'class' : 'form-control'} } ) }}
+		</div>
+
+		<div class="mb-3">
+			{{ form_label(articleForm.published, 'Published : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(articleForm.published, {'attr' : { 'class' : 'form-check'} } ) }}
+		</div>
+
+		<div class="mb-3">
+			{{ form_label(articleForm.date, 'Date : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(articleForm.date, {'attr' : { 'class' : 'form-control'} } ) }}
+		</div>
+
+		{{ form_widget(articleForm.enregistrer, { 'attr' : {'class' : 'btn btn-outline-primary'} } ) }}
+
+		{{ form_end(articleForm) }}
+	</div>
+
+{% endblock %}

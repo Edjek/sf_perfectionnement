@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper {
+        max-width: 800px;
+        font: 18px/1.5 sans-serif;
+    }
+</style>
+<div class="example-wrapper container text-center mt-3">
+    <h1>Administration!</h1>
+    <div class="mt-5">
+        <div><a href="{{ path('admin_article_list') }}" class="btn btn-outline-dark w-50 m-2">Gerer les articles</a></div>
+        <div><a href="{{ path('admin_writer_list') }}" class="btn btn-outline-dark w-50 m-2">Gerer les auteurs</a></div>
+        <div><a href="{{ path('admin_category_list') }}" class="btn btn-outline-dark w-50 m-2">Gerer les categories</a></div>
+    </div>
+</div>
+{% endblock %}

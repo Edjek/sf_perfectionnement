@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Writer
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="my-3">
+			<a href="{{ path('admin_main') }}" class="btn btn-outline-primary">
+				Accueil
+			</a>
+			<a href="{{ path('admin_writer_list') }}" class="btn btn-outline-primary">
+				Retour à la liste
+			</a>
+		</div>
+
+		{{ form_start(writerForm) }}
+		<div class="mb-3">
+			{{ form_label(writerForm.name, 'Name : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(writerForm.name, {'attr' : {'class' : 'form-control'} } ) }}
+		</div>
+
+		<div class="mb-3">
+			{{ form_label(writerForm.firstname, 'Firstname : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
+			{{ form_widget(writerForm.firstname, {'attr' : { 'class' : 'form-control'} } ) }}
+		</div>
+
+		{{ form_widget(writerForm.enregistrer, { 'attr' : {'class' : 'btn btn-outline-primary'} } ) }}
+
+		{{ form_end(writerForm) }}
+	</div>
+
+{% endblock %}
