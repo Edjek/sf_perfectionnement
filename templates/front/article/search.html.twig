@@ -30,7 +30,6 @@
 			</thead>
 			<tbody>
 				{% for article in articles %}
-				{% if article.published %}
 					<tr>
 						<td>
 							<a href="{{ path('article_show', { 'id' : article.id }) }}">
@@ -41,7 +40,6 @@
 						<td>{{ article.writer.name }} {{ article.writer.firstname }}</td>
 						<td>{{ article.category.name }}</td>
 					</tr>
-					{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>
