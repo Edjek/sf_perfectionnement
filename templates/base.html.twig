@@ -33,6 +33,12 @@
 				right: 50px;
 				background: #fff;
 			}
+			.sign-up {
+				position: fixed;
+				top: 50px;
+				right: 150px;
+				background: #fff;
+			}
 		</style>
 
 		<div class="text-center my-5">
@@ -57,9 +63,14 @@
 				</a>
 			</div>
 		{% else %}
+			<div class="sign-up">
+				<a href="{{path('app_register')}}">
+					<button class="btn btn-outline-primary">Sign up</button>
+				</a>
+			</div>
 			<div class="login">
 				<a href="{{path('app_login')}}">
-					<button class="btn btn-outline-primary">Sign-in</button>
+					<button class="btn btn-outline-primary">Sign in</button>
 				</a>
 			</div>
 		{% endif %}
