@@ -28,6 +28,7 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
 
         $faker = Factory::create('fr_FR');
+        $faker->seed(16);
 
         for ($i = 0; $i < 10; $i++) {
             $category = new Category();
@@ -52,8 +53,8 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $article = new Article();
 
-            $id_category = rand(111, 120);
-            $id_writer = rand(111, 120);
+            $id_category = rand(0, 10);
+            $id_writer = rand(0, 10);
 
             $category = $this->categoryRepository->find($id_category);
             $writer = $this->writerRepository->find($id_writer);

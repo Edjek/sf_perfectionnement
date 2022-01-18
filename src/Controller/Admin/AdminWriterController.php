@@ -100,7 +100,7 @@ class AdminWriterController extends AbstractController
 
         $writers = $writerRepository->searchByTerm($search);
 
-        return  $this->render("admin/admin_writer/search.html.twig", [
+        return  $this->render("admin/admin_writer/writers.html.twig", [
             'writers' => $writers
         ]);
     }
