@@ -40,7 +40,7 @@
 						</td>
 						<td>{{ article.content }}</td>
 						<td>{{ article.writer.name }} {{ article.writer.firstname }}</td><td>
-							{% for image in article.images %}<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
+							{% for image in article.images %}<img src="{{ asset('img/'~image.src) }}" alt="" width="100px">
 							{% endfor %}
 						</td>
 						<td>{{ article.category.name }}</td>

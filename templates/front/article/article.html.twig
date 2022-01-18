@@ -20,7 +20,7 @@
 			<h1>{{ article.title }}</h1>
 			<p>{{ article.content }}</p>
 			<p>
-				{% for image in article.images %}<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
+				{% for image in article.images %}<img src="{{ asset('img/'~image.src) }}" alt="" width="100px">
 				{% endfor %}
 			</p>
 		</div>

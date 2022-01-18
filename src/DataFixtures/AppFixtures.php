@@ -8,6 +8,7 @@ use App\Entity\Writer;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Repository\WriterRepository;
+use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -16,11 +17,13 @@ class AppFixtures extends Fixture
 {
     private $categoryRepository;
     private $writerRepository;
+    private $articleRepository;
 
-    public function __construct(CategoryRepository $categoryRepository, WriterRepository $writerRepository)
+    public function __construct(CategoryRepository $categoryRepository, WriterRepository $writerRepository, ArticleRepository $articleRepository)
     {
         $this->categoryRepository = $categoryRepository;
         $this->writerRepository = $writerRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     public function load(ObjectManager $manager): void
@@ -52,17 +55,6 @@ class AppFixtures extends Fixture
         }
 
         for ($i = 0; $i < 10; $i++) {
-            $image = new Image();
-
-            $image->setSrc($faker->lastname);
-            $image->setTitle($faker->firstname);
-            $image->setAlt($faker->firstname);
-
-            $manager->persist($image);
-            $manager->flush();
-        }
-
-        for ($i = 0; $i < 10; $i++) {
             $article = new Article();
 
             $id_category = rand(0, 10);
@@ -79,8 +71,23 @@ class AppFixtures extends Fixture
             $article->setWriter($writer);
 
             $manager->persist($article);
+            $manager->flush();
         }
 
-        $manager->flush();
+        for ($i = 0; $i < 10; $i++) {
+            $image = new Image();
+
+            $id_article = rand(0, 10);
+
+            $article = $this->articleRepository->find($id_article);
+
+            $image->setSrc($faker->imageUrl(640, 480, 'animals', true));
+            $image->setTitle($faker->word);
+            $image->setAlt($faker->word);
+            $image->setArticle($article);
+
+            $manager->persist($image);
+            $manager->flush();
+        }
     }
 }

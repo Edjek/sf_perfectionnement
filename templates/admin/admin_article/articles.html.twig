@@ -45,7 +45,7 @@
 						<td>{{ article.published == 1 ? 'publié' : 'non publié' }}</td>
 						<td>{{ article.date | date('d/m/Y') }}</td>
 						<td>
-							{% for image in article.images %}<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
+							{% for image in article.images %}<img src="{{ asset('img/'~image.src) }}" alt="" width="100px">
 							{% endfor %}
 						</td>
 						<td>
