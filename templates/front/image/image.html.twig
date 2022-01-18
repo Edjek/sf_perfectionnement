@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Image
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-3">
+		<div class="my-3">
+			<a href="{{ path('main') }}" class="btn btn-outline-primary">
+				Accueil
+			</a>
+			<a href="{{ path('image_list') }}" class="btn btn-outline-primary">
+				Liste des images
+			</a>
+		</div>
+
+		<div class="border p-5">
+			<h1>{{ image.title }}</h1>
+			<p>{{ image.src }}</p>
+			<p>{{ image.alt }}</p>
+			<p><img src="{{ asset('media/'~image.src) }}" alt="" width="100px"></p>
+		</div>
+	</div>
+
+{% endblock %}

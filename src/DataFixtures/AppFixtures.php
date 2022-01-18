@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Image;
 use App\Entity\Writer;
 use App\Entity\Article;
 use App\Entity\Category;
@@ -47,6 +48,17 @@ class AppFixtures extends Fixture
             $writer->setFirstname($faker->firstname);
 
             $manager->persist($writer);
+            $manager->flush();
+        }
+
+        for ($i = 0; $i < 10; $i++) {
+            $image = new Image();
+
+            $image->setSrc($faker->lastname);
+            $image->setTitle($faker->firstname);
+            $image->setAlt($faker->firstname);
+
+            $manager->persist($image);
             $manager->flush();
         }
 

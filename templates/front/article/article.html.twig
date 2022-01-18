@@ -19,6 +19,10 @@
 		<div class="border p-5">
 			<h1>{{ article.title }}</h1>
 			<p>{{ article.content }}</p>
+			<p>
+				{% for image in article.images %}<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
+				{% endfor %}
+			</p>
 		</div>
 	</div>
 

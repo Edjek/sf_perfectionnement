@@ -1,11 +1,11 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Categories!
+{% block title %}Images!
 {% endblock %}
 
 {% block body %}
 
-	<div class="container mt-5">
+	<div class="container mt-3">
 		{% for message in app.flashes('notice') %}
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
 				{{ message }}
@@ -17,7 +17,7 @@
 			<a href="{{ path('admin_main') }}" class="btn btn-outline-primary">
 				Accueil
 			</a>
-			<a href="{{ path('admin_create_article') }}" class="btn btn-outline-primary">
+			<a href="{{ path('admin_create_image') }}" class="btn btn-outline-primary">
 				Ajouter<i class="bi bi-plus-circle-dotted ms-2"></i>
 			</a>
 		</div>
@@ -25,36 +25,32 @@
 		<table class="table table-hover text-center">
 			<thead>
 				<tr>
-					<th scope="col">Titre</th>
-					<th scope="col">Contenu</th>
-					<th scope="col">Auteur</th>
-					<th scope="col">Publié</th>
-					<th scope="col">Date</th>
 					<th scope="col">Image</th>
+					<th scope="col">Title</th>
+					<th scope="col">Fichier</th>
+					<th scope="col">Alt</th>
 					<th scope="col">Modifier</th>
 					<th scope="col">Supprimer</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for article in articles %}
+				{% for image in images %}
 					<tr>
-						<td>{{ article.title | capitalize }}</td>
-						<td>{{ article.content }}</td>
-						<td>{{ article.writer.name }}
-							{{ article.writer.firstname }}</td>
-						<td>{{ article.published == 1 ? 'publié' : 'non publié' }}</td>
-						<td>{{ article.date | date('d/m/Y') }}</td>
 						<td>
-							{% for image in article.images %}<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
-							{% endfor %}
+							<a href="{{ path('admin_update_image', { 'id' : image.id }) }}">
+								<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
+							</a>
 						</td>
+						<td>{{ image.title }}</td>
+						<td>{{ image.src }}</td>
+						<td>{{ image.alt }}</td>
 						<td>
-							<a href="{{ path('admin_update_article', { 'id' : article.id }) }}">
+							<a href="{{ path('admin_update_image', { 'id' : image.id }) }}">
 								<i class="bi bi-pencil-square"></i>
 							</a>
 						</td>
 						<td>
-							<a href="{{ path('admin_delete_article', { 'id' : article.id }) }}">
+							<a href="{{ path('admin_delete_image', { 'id' : image.id }) }}">
 								<i class="bi bi-trash text-danger"></i>
 							</a>
 						</td>

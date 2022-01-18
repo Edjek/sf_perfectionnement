@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editors!
+{% block title %}Images!
 {% endblock %}
 
 {% block body %}
@@ -22,30 +22,29 @@
 		<table class="table table-hover text-center">
 			<thead>
 				<tr>
-					<th scope="col">Titre</th>
-					<th scope="col">Contenu</th>
-					<th scope="col">Auteur</th>
 					<th scope="col">Image</th>
-					<th scope="col">Categorie</th>
+					<th scope="col">Title</th>
+					<th scope="col">Fichier</th>
+					<th scope="col">Alt</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for article in articles %}
-				{# {% if article.published %} #}
+				{% for image in images %}
 					<tr>
 						<td>
-							<a href="{{ path('article_show', { 'id' : article.id }) }}">
-								{{ article.title }}
+							<a href="{{ path('image_show', { 'id' : image.id }) }}">
+								<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
 							</a>
 						</td>
-						<td>{{ article.content }}</td>
-						<td>{{ article.writer.name }} {{ article.writer.firstname }}</td><td>
-							{% for image in article.images %}<img src="{{ asset('media/'~image.src) }}" alt="" width="100px">
-							{% endfor %}
+						<td>
+							<a href="{{ path('image_show', { 'id' : image.id }) }}">
+								{{ image.title }}
+							</a>
 						</td>
-						<td>{{ article.category.name }}</td>
+						<td>{{ image.src }}</td>
+						<td>{{ image.alt }}</td>
+
 					</tr>
-					{# {% endif %} #}
 				{% endfor %}
 			</tbody>
 		</table>
