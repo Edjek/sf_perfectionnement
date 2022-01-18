@@ -19,6 +19,19 @@ class WriterRepository extends ServiceEntityRepository
         parent::__construct($registry, Writer::class);
     }
 
+    public function searchByTerm($term)
+    {
+        $queryBuilder = $this->createQueryBuilder('writer');
+
+        $query = $queryBuilder
+            ->select('writer')
+            ->where('writer.name LIKE :term')
+            ->orWhere('writer.firstname LIKE :term')
+            ->setParameter('term', '%' . $term . '%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
     // /**
     //  * @return Writer[] Returns an array of Writer objects
     //  */

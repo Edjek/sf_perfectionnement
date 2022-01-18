@@ -23,6 +23,7 @@ class WriterController extends AbstractController
     public function writerShow($id, WriterRepository $writerRepository)
     {
         $writer = $writerRepository->find($id);
+
         return $this->render('front/writer/writer.html.twig', [
             'writer' => $writer,
         ]);

@@ -92,4 +92,16 @@ class AdminWriterController extends AbstractController
 
         return $this->redirectToRoute("admin_writer_list");
     }
+
+    #[Route('/admin/search/writers', name: 'admin_search_writers')]
+    public function adminSearchWriters(WriterRepository $writerRepository, Request $request)
+    {
+        $search = $request->get('search');
+
+        $writers = $writerRepository->searchByTerm($search);
+
+        return  $this->render("admin/admin_writer/search.html.twig", [
+            'writers' => $writers
+        ]);
+    }
 }
