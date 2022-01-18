@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminCategoryController extends AbstractController
 {
     #[Route('/admin/category', name: 'admin_category_list')]
-    public function comic_list(CategoryRepository $categoryRepository)
+    public function categoryList(CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findAll();
 

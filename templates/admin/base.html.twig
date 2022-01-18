@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Admininistration!
 			{% endblock %}
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
@@ -30,7 +30,7 @@
 		</style>
 
 		<div class="text-center my-5">
-			<a href="{{path('main')}}">
+			<a href="{{path('admin_main')}}">
 				<img src="{{ asset('img/logo.png') }}" alt="" width="100">
 			</a>
 		</div>
@@ -38,7 +38,7 @@
 		<div class="search">
 			<form action="{{ path('admin_search_writers')}}" method="get">
 				<div class="input-group">
-					<input type="text" name="search" placeholder="Search Writers" class="form-control search-input">
+					<input type="text" name="search" placeholder="Chercher un auteur" class="form-control search-input">
 					<input type="submit" class="btn btn-outline-primary" value="Recherche">
 				</div>
 			</form>

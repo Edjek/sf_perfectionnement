@@ -5,3 +5,23 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+admin_search_writers:
+    path: /admin/search/writers
+    controller: App\Controller\Admin\AdminWriterController::adminSearchWriters
+
+admin_writer_list:
+    path: /admin/writer
+    controller: App\Controller\Admin\AdminWriterController::writerList
+
+admin_create_writer:
+    path: /admin/create/writer
+    controller: App\Controller\Admin\AdminWriterController::createWriter
+
+admin_update_writer:
+    path: /admin/update/writer/{id}
+    controller: App\Controller\Admin\AdminWriterController::updateWriter
+
+admin_delete_writer:
+    path: /admin/delete/writer/{id}
+    controller: App\Controller\Admin\AdminWriterController::deleteWriter

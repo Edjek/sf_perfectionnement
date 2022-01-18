@@ -27,6 +27,12 @@
 				left: 20px;
 				background: #fff;
 			}
+			.login {
+				position: fixed;
+				top: 50px;
+				right: 50px;
+				background: #fff;
+			}
 		</style>
 
 		<div class="text-center my-5">
@@ -38,11 +44,25 @@
 		<div class="search">
 			<form action="{{ path('search')}}" method="get">
 				<div class="input-group">
-					<input type="text" name="search" placeholder="Search" class="form-control search-input">
+					<input type="text" name="search" placeholder="Recherche" class="form-control search-input">
 					<input type="submit" class="btn btn-outline-primary" value="Recherche">
 				</div>
 			</form>
 		</div>
+
+		{% if app.user %}
+			<div class="login">
+				<a href="{{path('app_logout')}}">
+					<button class="btn btn-outline-primary">Logout</button>
+				</a>
+			</div>
+		{% else %}
+			<div class="login">
+				<a href="{{path('app_login')}}">
+					<button class="btn btn-outline-primary">Sign-in</button>
+				</a>
+			</div>
+		{% endif %}
 
 		{% block body %}{% endblock %}
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminArticleController extends AbstractController
 {
     #[Route('/admin/article', name: 'admin_article_list')]
-    public function comic_list(ArticleRepository $articleRepository)
+    public function articlelist(ArticleRepository $articleRepository)
     {
         $articles = $articleRepository->findAll();
 

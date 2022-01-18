@@ -13,8 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminWriterController extends AbstractController
 {
-    #[Route('/admin/writer', name: 'admin_writer_list')]
-    public function comic_list(WriterRepository $writerRepository)
+    public function writerList(WriterRepository $writerRepository)
     {
         $writers = $writerRepository->findAll();
 
@@ -23,7 +22,6 @@ class AdminWriterController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/create/writer', name: 'admin_create_writer')]
     public function createWriter(EntityManagerInterface $entityManagerInterface, Request $request)
     {
         $writer = new Writer();
@@ -47,7 +45,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/admin_writer/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    #[Route('/admin/update/writer/{id}', name: 'admin_update_writer')]
     public function updateWriter(
         $id,
         WriterRepository $writerRepository,
@@ -76,7 +73,6 @@ class AdminWriterController extends AbstractController
         return $this->render("admin/admin_writer/writerform.html.twig", ['writerForm' => $writerForm->createView()]);
     }
 
-    #[Route('/admin/delete/writer/{id}', name: 'admin_delete_writer')]
     public function deleteWriter($id, WriterRepository $writerRepository, EntityManagerInterface $entityManagerInterface)
     {
         $writer = $writerRepository->find($id);
@@ -93,14 +89,13 @@ class AdminWriterController extends AbstractController
         return $this->redirectToRoute("admin_writer_list");
     }
 
-    #[Route('/admin/search/writers', name: 'admin_search_writers')]
     public function adminSearchWriters(WriterRepository $writerRepository, Request $request)
     {
         $search = $request->get('search');
 
         $writers = $writerRepository->searchByTerm($search);
 
-        return  $this->render("admin/admin_writer/writers.html.twig", [
+        return  $this->render("admin/admin_writer/search.html.twig", [
             'writers' => $writers
         ]);
     }
