@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container w-50 m-auto">
+	<div class="container p-3 w-50 m-auto">
 		<h1>Register</h1>
 
 		<div class="form mt-5">
@@ -39,12 +39,18 @@
 			</div>
 
 			<div class="mb-3">
-				{{ form_row(registrationForm.agreeTerms, { label: 'accepter les termes'}) }}
+				{{ form_row(registrationForm.agreeTerms, { label: 'accepter les conditions'}) }}
 			</div>
 
 			<button type="submit" class="btn btn-outline-dark mt-3">Envoyer</button>
 
 			{{ form_end(registrationForm) }}
+
+			{% if app.user %}
+				<form action="{{ path('delete_user') }}">
+					<button type="submit" class="btn btn-outline-danger mt-3">Supprimer</button>
+				</form>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

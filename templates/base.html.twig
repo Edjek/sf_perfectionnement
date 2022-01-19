@@ -33,8 +33,14 @@
 				right: 50px;
 				background: #fff;
 			}
-			.sign-up,
 			.admin {
+				position: fixed;
+				top: 50px;
+				right: 250px;
+				background: #fff;
+			}
+			.sign-up,
+			.compte {
 				position: fixed;
 				top: 50px;
 				right: 130px;
@@ -57,20 +63,14 @@
 			</form>
 		</div>
 
-		{% if app.user %}
-			{% if app.user.roles[0] == 'ROLE_ADMIN' %}
-				<div class="admin">
-					<a href="{{path('admin_main')}}">
-						<button class="btn btn-outline-primary">Admin</button>
-					</a>
-				</div>
-			{% endif %}
-			<div class="login">
-				<a href="{{path('app_logout')}}">
-					<button class="btn btn-outline-primary">Logout</button>
-				</a>
+		{% for message in app.flashes('notice') %}
+			<div class="container alert alert-success alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
-		{% else %}
+		{% endfor %}
+
+		{% if app.user is null %}
 			<div class="sign-up">
 				<a href="{{path('app_register')}}">
 					<button class="btn btn-outline-primary">Sign up</button>
@@ -79,6 +79,24 @@
 			<div class="login">
 				<a href="{{path('app_login')}}">
 					<button class="btn btn-outline-primary">Sign in</button>
+				</a>
+			</div>
+		{% else %}
+			{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+				<div class="admin">
+					<a href="{{path('admin_main')}}">
+						<button class="btn btn-dark">Admin</button>
+					</a>
+				</div>
+			{% endif %}
+			<div class="compte">
+				<a href="{{path('update_user')}}">
+					<button class="btn btn-outline-primary">Mon compte</button>
+				</a>
+			</div>
+			<div class="login">
+				<a href="{{path('app_logout')}}">
+					<button class="btn btn-outline-primary">Logout</button>
 				</a>
 			</div>
 		{% endif %}

@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Votre compte a été supprimé'
+                'Votre compte a été créé'
             );
 
             return $userAuthenticator->authenticateUser(
@@ -62,9 +62,8 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-    #[Route('/update/user/{id}', name: 'update_user')]
+    #[Route('/update/user/', name: 'update_user')]
     public function updateRegister(
-        $id,
         Request $request,
         UserRepository $userRepository,
         UserPasswordHasherInterface $userPasswordHasher,
@@ -73,21 +72,19 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager,
         MailerInterface $mailerInterface
     ): Response {
-        $user = $userRepository->find($id);
-
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class,  $this->getUser());
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
+            $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+
+            $user->setPassword($userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setRoles(["ROLE_USER"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -117,10 +114,10 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/user/{id}', name: 'delete_user')]
-    public function deleteUser($id, UserRepository $userRepository, EntityManagerInterface $entityManagerInterface)
+    #[Route('/delete/user/', name: 'delete_user')]
+    public function deleteUser( UserRepository $userRepository, EntityManagerInterface $entityManagerInterface)
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
         $entityManagerInterface->remove($user);
 
@@ -131,6 +128,6 @@ class RegistrationController extends AbstractController
             'Le compte a été supprimé'
         );
 
-        return $this->redirectToRoute("main");
+        return $this->redirectToRoute("app_register");
     }
 }

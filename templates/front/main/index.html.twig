@@ -13,13 +13,6 @@
 	<div class="example-wrapper container text-center mt-3">
 		<h1>Bienvenue!</h1>
 
-		{% for message in app.flashes('notice') %}
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				{{ message }}
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		{% endfor %}
-
 		<div class="mt-5">
 			<div>
 				<a href="{{ path('article_list') }}" class="btn btn-outline-dark w-50 m-2">Voir les articles</a>
