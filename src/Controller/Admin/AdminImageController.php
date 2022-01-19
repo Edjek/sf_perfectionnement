@@ -7,7 +7,6 @@ use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminImageController extends AbstractController
 {
     #[Route('/admin/image', name: 'admin_image_list')]
-    public function comic_list(ImageRepository $imageRepository)
+    public function imageList(ImageRepository $imageRepository)
     {
         $images = $imageRepository->findAll();
 

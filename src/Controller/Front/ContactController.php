@@ -22,10 +22,9 @@ class ContactController extends AbstractController
         $contactForm->handleRequest($request);
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
-            $from    = $contactForm->getData()['email'];
-            $subject = $contactForm->getData()['subject'];
-            $message = $contactForm->getData()['message'];
-            $message = $contactForm->getData()['message'];
+            $from    = $contactForm->get('email')->getData();
+            $subject = $contactForm->get('subject')->getData();
+            $message = $contactForm->get('message')->getData();
 
             // $email = (new Email())
             //     ->from($from)
