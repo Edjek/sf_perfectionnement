@@ -51,6 +51,7 @@ class ArticleController extends AbstractController
         $id,
         ArticleRepository $articleRepository,
         LikeRepository $likeRepository,
+        DislikeRepository $dislikeRepository,
         EntityManagerInterface $entityManagerInterface
     ) {
 
@@ -81,10 +82,10 @@ class ArticleController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => "Like supprimé",
-                'likes' => $likeRepository->count(['article' => $article])
+                'likes' => $likeRepository->count(['article' => $article]),
+                'dislikes' => $dislikeRepository->count(['article' => $article])
             ], 200);
         }
-
 
         $like = new Like();
 
@@ -94,10 +95,17 @@ class ArticleController extends AbstractController
         $entityManagerInterface->persist($like);
         $entityManagerInterface->flush();
 
+        if ($article->isDislikeByUser($user)) {
+            $dislike = $dislikeRepository->findOneBy(['article' => $article]);
+            $entityManagerInterface->remove($dislike);
+            $entityManagerInterface->flush();
+        }
+
         return $this->json([
             'code' => 200,
             'message' => "Like ajouté",
-            'likes' => $likeRepository->count(['article' => $article])
+            'likes' => $likeRepository->count(['article' => $article]),
+            'dislikes' => $dislikeRepository->count(['article' => $article])
         ], 200);
     }
 
@@ -106,6 +114,7 @@ class ArticleController extends AbstractController
         $id,
         ArticleRepository $articleRepository,
         DislikeRepository $dislikeRepository,
+        likeRepository $likeRepository,
         EntityManagerInterface $entityManagerInterface
     ) {
 
@@ -123,23 +132,23 @@ class ArticleController extends AbstractController
         }
 
         if ($article->isDislikeByUser($user)) {
-            $like = $dislikeRepository->findOneBy(
+            $dislike = $dislikeRepository->findOneBy(
                 [
                     'article' => $article,
                     'user' => $user
                 ]
             );
 
-            $entityManagerInterface->remove($like);
+            $entityManagerInterface->remove($dislike);
             $entityManagerInterface->flush();
 
             return $this->json([
                 'code' => 200,
                 'message' => "Like supprimé",
-                'likes' => $dislikeRepository->count(['article' => $article])
+                'likes' => $likeRepository->count(['article' => $article]),
+                'dislikes' => $dislikeRepository->count(['article' => $article])
             ], 200);
         }
-
 
         $dislike = new Dislike();
 
@@ -149,10 +158,17 @@ class ArticleController extends AbstractController
         $entityManagerInterface->persist($dislike);
         $entityManagerInterface->flush();
 
+        if ($article->isLikeByUser($user)) {
+            $like = $likeRepository->findOneBy(['article' => $article]);
+            $entityManagerInterface->remove($like);
+            $entityManagerInterface->flush();
+        }
+
         return $this->json([
             'code' => 200,
             'message' => "Like ajouté",
-            'likes' => $dislikeRepository->count(['article' => $article])
+            'dislikes' => $dislikeRepository->count(['article' => $article]),
+            'likes' => $likeRepository->count(['article' => $article])
         ], 200);
     }
 }

@@ -50,17 +50,17 @@
 						<td>
 							<a href="{{ path('article_like', { 'id' : article.id }) }}" class="text-decoration-none js-likes">
 								{% if app.user and article.isLikeByUser(app.user) %}
-									<i class="bi bi-hand-thumbs-up-fill"></i>
+									<i class="like bi bi-hand-thumbs-up-fill"></i>
 								{% else %}
-									<i class="bi bi-hand-thumbs-up"></i>
+									<i class="like bi bi-hand-thumbs-up"></i>
 								{% endif %}
 								<span class="js-likes">{{ article.likes | length }}</span>
 							</a>
 							<a href="{{ path('article_dislike', { 'id' : article.id }) }}" class="text-decoration-none text-danger js-dislikes">
 								{% if app.user and article.isDislikeByUser(app.user) %}
-									<i class="bi bi-hand-thumbs-down-fill text-danger"></i>
+									<i class="dislike bi bi-hand-thumbs-down-fill text-danger"></i>
 								{% else %}
-									<i class="bi bi-hand-thumbs-down text-danger"></i>
+									<i class="dislike bi bi-hand-thumbs-down text-danger"></i>
 								{% endif %}
 								<span class="js-dislikes">{{ article.dislikes | length }}</span>
 							</a>
