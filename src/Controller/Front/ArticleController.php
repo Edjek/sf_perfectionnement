@@ -2,7 +2,10 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Like;
+use App\Repository\LikeRepository;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,5 +42,60 @@ class ArticleController extends AbstractController
         return $this->render('front/article/search.html.twig', [
             'articles' => $articles,
         ]);
+    }
+
+    #[Route('/like/article/{id}', name: 'article_like')]
+    public function likeArticle(
+        $id,
+        ArticleRepository $articleRepository,
+        LikeRepository $likeRepository,
+        EntityManagerInterface $entityManagerInterface
+    ) {
+
+        $article = $articleRepository->find($id);
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json(
+                [
+                    'code' => 403,
+                    'message' => "Vous devez vous connecter"
+                ],
+                403
+            );
+        }
+
+        if ($article->isLikeByUser($user)) {
+            $like = $likeRepository->findOneBy(
+                [
+                    'article' => $article,
+                    'user' => $user
+                ]
+            );
+
+            $entityManagerInterface->remove($like);
+            $entityManagerInterface->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "Like supprimé",
+                'likes' => $likeRepository->count(['article' => $article])
+            ], 200);
+        }
+
+
+        $like = new Like();
+
+        $like->setArticle($article);
+        $like->setUser($user);
+
+        $entityManagerInterface->persist($like);
+        $entityManagerInterface->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => "Like ajouté",
+            'likes' => $likeRepository->count(['article' => $article])
+        ], 200);
     }
 }

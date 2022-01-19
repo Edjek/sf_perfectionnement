@@ -18,6 +18,16 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
+    #[Route('/admin/users', name: 'admin_user_list')]
+    public function userList(UserRepository $userRepository)
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('admin/admin_user/users.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, MailerInterface $mailerInterface): Response
     {
@@ -37,11 +47,12 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
             // do anything else you need here, like send an email
-            $from    = $form->get('email')->getData();
+            $to    = $form->get('email')->getData();
             $email = (new Email())
-                ->from($from)
-                ->to('dihcar16ar@hotmail.fr')
+                ->from('admin@gmail.fr')
+                ->to($to)
                 ->subject('Inscription')
                 ->html('<h1>Bien joué! Vous êtes inscrit.</h1>');
             $mailerInterface->send($email);
@@ -80,7 +91,8 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
-            $user->setPassword($userPasswordHasher->hashPassword(
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -88,11 +100,12 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
             // do anything else you need here, like send an email
-            $from    = $form->get('email')->getData();
+            $to    = $form->get('email')->getData();
             $email = (new Email())
-                ->from($from)
-                ->to('dihcar16ar@hotmail.fr')
+                ->from('admin@gmail.com')
+                ->to($to)
                 ->subject('Mise à jour de votre compte')
                 ->html('<h1>Bien joué! Vous avez mis à jour votre compte.</h1>');
             $mailerInterface->send($email);
@@ -115,7 +128,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/delete/user/', name: 'delete_user')]
-    public function deleteUser( UserRepository $userRepository, EntityManagerInterface $entityManagerInterface)
+    public function deleteUser(UserRepository $userRepository, EntityManagerInterface $entityManagerInterface)
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 

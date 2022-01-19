@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editors!
+{% block title %}Articles!
 {% endblock %}
 
 {% block body %}
@@ -27,11 +27,12 @@
 					<th scope="col">Auteur</th>
 					<th scope="col">Image</th>
 					<th scope="col">Categorie</th>
+					<th scope="col">Like</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for article in articles %}
-				{# {% if article.published %} #}
+					{# {% if article.published %} #}
 					<tr>
 						<td>
 							<a href="{{ path('article_show', { 'id' : article.id }) }}">
@@ -39,11 +40,23 @@
 							</a>
 						</td>
 						<td>{{ article.content }}</td>
-						<td>{{ article.writer.name }} {{ article.writer.firstname }}</td><td>
+						<td>{{ article.writer.name }}
+							{{ article.writer.firstname }}</td>
+						<td>
 							{% for image in article.images %}<img src="{{ asset('img/'~image.src) }}" alt="" width="100px">
 							{% endfor %}
 						</td>
 						<td>{{ article.category.name }}</td>
+						<td>
+							<a href="{{ path('article_like', { 'id' : article.id }) }}" class=" js-likes">
+								{% if app.user and article.isLikeByUser(app.user) %}
+									<i class="bi bi-hand-thumbs-up-fill"></i>
+								{% else %}
+									<i class="bi bi-hand-thumbs-up"></i>
+								{% endif %}
+								<span class="js-likes">{{ article.likes | length }}</span>
+							</a>
+						</td>
 					</tr>
 					{# {% endif %} #}
 				{% endfor %}

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Writer;
 use App\Entity\Article;
@@ -87,6 +88,22 @@ class AppFixtures extends Fixture
             $image->setArticle($article);
 
             $manager->persist($image);
+            $manager->flush();
+        }
+
+        for ($i = 0; $i < 10; $i++) {
+            $user = new User();
+
+            $user->setEmail($faker->email);
+            $user->setRoles(["ROLE_USER"]);
+            $user->setPassword($faker->password);
+            $user->setLastname($faker->lastname);
+            $user->setFirstname($faker->firstname);
+            $user->setAdress($faker->address);
+            $user->setZipcode($faker->postcode);
+            $user->setCity($faker->city);
+
+            $manager->persist($user);
             $manager->flush();
         }
     }
