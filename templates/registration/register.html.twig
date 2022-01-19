@@ -9,19 +9,41 @@
 
 		<div class="form mt-5">
 			{{ form_start(registrationForm) }}
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.lastname, { label: 'Nom' , 'attr' : { 'class' : 'form-control'} }) }}
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.firstname, { label: 'Prénom' , 'attr' : { 'class' : 'form-control'} }) }}
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.adress, { label: 'Adresse' , 'attr' : { 'class' : 'form-control'} }) }}
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.city, { label: 'Ville' , 'attr' : { 'class' : 'form-control'} }) }}
+			</div>
+
+			<div class="mb-3">
+				{{ form_row(registrationForm.zipcode, { label: 'Code Postal' , 'attr' : { 'class' : 'form-control'} }) }}
+			</div>
+
 			<div class="mb-3">
 				{{ form_row(registrationForm.email, {'attr' : { 'class' : 'form-control'} }) }}
 			</div>
+
 			<div class="mb-3">
-				{{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe' ,'attr' : { 'class' : 'form-control' }
-        }) }}
+				{{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' ,'attr' : { 'class' : 'form-control' }}) }}
 			</div>
+
 			<div class="mb-3">
 				{{ form_row(registrationForm.agreeTerms, { label: 'accepter les termes'}) }}
 			</div>
 
-			<button type="submit" class="btn btn-outline-dark mt-3">Inscription</button>
+			<button type="submit" class="btn btn-outline-dark mt-3">Envoyer</button>
+
 			{{ form_end(registrationForm) }}
 		</div>
 	</div>
