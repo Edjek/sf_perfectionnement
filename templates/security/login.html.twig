@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block body %}
-	<form method="post">
-		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-		{% endif %}
+	<div class="container w-50">
+		<form method="post">
+			{% if error %}
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
 
-		<div class="container">
 			{% if app.user %}
 				<div class="mb-3">
 					Vous êtes connecté avec le compte:
@@ -18,7 +18,7 @@
 				</div>
 			{% endif %}
 
-			<h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter</h1>
+			<h1 class="h3 mb-5 font-weight-normal">Merci de vous connecter</h1>
 			<div class="my-3">
 				<label for="inputEmail">Email</label>
 				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
@@ -30,7 +30,7 @@
 
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-			<button class="btn btn-lg btn-outline-dark" type="submit">
+			<button class="btn btn-lg btn-outline-dark mt-5" type="submit">
 				Connection
 			</button>
 		</form>

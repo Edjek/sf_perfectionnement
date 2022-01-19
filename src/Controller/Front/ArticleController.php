@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ArticleController extends AbstractController
 {
     #[Route('/articles', name: 'article_list')]
-    public function article_list(ArticleRepository $articleRepository)
+    public function articleList(ArticleRepository $articleRepository)
     {
         $articles = $articleRepository->findAll();
 

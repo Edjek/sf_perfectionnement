@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ImageController extends AbstractController
 {
     #[Route('/images', name: 'image_list')]
-    public function image_list(ImageRepository $imageRepository)
+    public function imageList(ImageRepository $imageRepository)
     {
         $images = $imageRepository->findAll();
 

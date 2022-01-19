@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoryController extends AbstractController
 {
     #[Route('/categories', name: 'category_list')]
-    public function category_list(CategoryRepository $categoryRepository)
+    public function categoryList(CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findAll();
 

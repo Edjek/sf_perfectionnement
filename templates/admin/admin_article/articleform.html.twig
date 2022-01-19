@@ -5,18 +5,19 @@
 
 {% block body %}
 
-	<div class="container">
-		<div class="my-3">
-			<a href="{{ path('admin_main') }}" class="btn btn-outline-primary">
-				Accueil
-			</a>
-			<a href="{{ path('admin_article_list') }}" class="btn btn-outline-primary">
-				Retour à la liste
-			</a>
-		</div>
+	<div class="container my-3">
+		<a href="{{ path('admin_main') }}" class="btn btn-outline-primary">
+			Accueil
+		</a>
+		<a href="{{ path('admin_article_list') }}" class="btn btn-outline-primary">
+			Retour à la liste
+		</a>
+	</div>
 
+	<div class="container w-50">
+	<h1>Article</h1>
 		{{ form_start(articleForm) }}
-		<div class="mb-3">
+		<div class="mb-3 mt-5">
 			{{ form_label(articleForm.title, 'Titre : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
 			{{ form_widget(articleForm.title, {'attr' : {'class' : 'form-control'} } ) }}
 		</div>
@@ -46,7 +47,9 @@
 			{{ form_widget(articleForm.date, {'attr' : { 'class' : 'form-control'} } ) }}
 		</div>
 
+		<div class="mt-5">
 		{{ form_widget(articleForm.enregistrer, { 'attr' : {'class' : 'btn btn-outline-primary'} } ) }}
+		</div>
 
 		{{ form_end(articleForm) }}
 	</div>

@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class WriterController extends AbstractController
 {
     #[Route('/writers', name: 'writer_list')]
-    public function writer_list(WriterRepository $writerRepository)
+    public function writerList(WriterRepository $writerRepository)
     {
         $writers = $writerRepository->findAll();
 

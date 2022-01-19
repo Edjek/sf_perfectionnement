@@ -14,9 +14,12 @@
 				Retour à la liste
 			</a>
 		</div>
+	</div>
 
+	<div class="container w-50">
+	<h1>Image</h1>
 		{{ form_start(imageForm) }}
-		<div class="mb-3">
+		<div class="mb-3 mt-5">
 			{{ form_label(imageForm.title, 'Title : ', {'label_attr' : { 'class' : 'form-label' } } ) }}
 			{{ form_widget(imageForm.title, {'attr' : {'class' : 'form-control'} } ) }}
 		</div>
@@ -36,7 +39,9 @@
 			{{ form_widget(imageForm.article, {'attr' : { 'class' : 'form-control'} } ) }}
 		</div>
 
+		<div class="mt-5">
 		{{ form_widget(imageForm.enregistrer, { 'attr' : {'class' : 'btn btn-outline-primary'} } ) }}
+		</div>
 
 		{{ form_end(imageForm) }}
 	</div>
