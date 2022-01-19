@@ -3,8 +3,10 @@
 namespace App\Controller\Front;
 
 use App\Entity\Like;
+use App\Entity\Dislike;
 use App\Repository\LikeRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\DislikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,6 +98,61 @@ class ArticleController extends AbstractController
             'code' => 200,
             'message' => "Like ajouté",
             'likes' => $likeRepository->count(['article' => $article])
+        ], 200);
+    }
+
+    #[Route('/dislike/article/{id}', name: 'article_dislike')]
+    public function dislikeArticle(
+        $id,
+        ArticleRepository $articleRepository,
+        DislikeRepository $dislikeRepository,
+        EntityManagerInterface $entityManagerInterface
+    ) {
+
+        $article = $articleRepository->find($id);
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json(
+                [
+                    'code' => 403,
+                    'message' => "Vous devez vous connecter"
+                ],
+                403
+            );
+        }
+
+        if ($article->isDislikeByUser($user)) {
+            $like = $dislikeRepository->findOneBy(
+                [
+                    'article' => $article,
+                    'user' => $user
+                ]
+            );
+
+            $entityManagerInterface->remove($like);
+            $entityManagerInterface->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "Like supprimé",
+                'likes' => $dislikeRepository->count(['article' => $article])
+            ], 200);
+        }
+
+
+        $dislike = new Dislike();
+
+        $dislike->setArticle($article);
+        $dislike->setUser($user);
+
+        $entityManagerInterface->persist($dislike);
+        $entityManagerInterface->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => "Like ajouté",
+            'likes' => $dislikeRepository->count(['article' => $article])
         ], 200);
     }
 }
