@@ -70,18 +70,7 @@
 			</div>
 		{% endfor %}
 
-		{% if app.user is null %}
-			<div class="sign-up">
-				<a href="{{path('app_register')}}">
-					<button class="btn btn-outline-primary">Sign up</button>
-				</a>
-			</div>
-			<div class="login">
-				<a href="{{path('app_login')}}">
-					<button class="btn btn-outline-primary">Sign in</button>
-				</a>
-			</div>
-		{% else %}
+		{% if app.user %}
 			{% if app.user.roles[0] == 'ROLE_ADMIN' %}
 				<div class="admin">
 					<a href="{{path('admin_main')}}">
@@ -97,6 +86,17 @@
 			<div class="login">
 				<a href="{{path('app_logout')}}">
 					<button class="btn btn-outline-primary">Logout</button>
+				</a>
+			</div>
+		{% else %}
+			<div class="sign-up">
+				<a href="{{path('app_register')}}">
+					<button class="btn btn-outline-primary">Sign up</button>
+				</a>
+			</div>
+			<div class="login">
+				<a href="{{path('app_login')}}">
+					<button class="btn btn-outline-primary">Sign in</button>
 				</a>
 			</div>
 		{% endif %}

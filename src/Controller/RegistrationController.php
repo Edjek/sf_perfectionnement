@@ -73,6 +73,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
     #[Route('/update/user/', name: 'update_user')]
     public function updateRegister(
         Request $request,
@@ -141,6 +142,6 @@ class RegistrationController extends AbstractController
             'Le compte a été supprimé'
         );
 
-        return $this->redirectToRoute("app_register");
+        return $this->redirectToRoute("main");
     }
 }
